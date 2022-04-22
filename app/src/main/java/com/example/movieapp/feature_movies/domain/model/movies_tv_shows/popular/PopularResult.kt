@@ -1,10 +1,10 @@
-package com.example.movieapp.feature_movies.domain.model.top_rated
+package com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular
 
-data class TopRatedMovies(
+data class PopularResult(
     val adult: Boolean?,
     val backdrop_path: String?,
-    val genre_ids: List<Double>?,
-    val id: Double?,
+    val genre_ids: List<Int>?,
+    val id: Int?,
     val original_language: String?,
     val original_title: String?,
     val overview: String?,
@@ -14,5 +14,5 @@ data class TopRatedMovies(
     val title: String?,
     val video: Boolean?,
     val vote_average: Double?,
-    val vote_count: Double?
+    val vote_count: Int?
 )

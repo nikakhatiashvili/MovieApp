@@ -1,5 +1,6 @@
 package com.example.movieapp.feature_movies.domain.utils
 
+import android.util.Log.d
 import retrofit2.Response
 
 interface ResponseHandler {
@@ -14,6 +15,7 @@ interface ResponseHandler {
                 if (response.isSuccessful && body != null) {
                     return Resource.Success(body)
                 }
+
                 return Resource.Error(response.errorBody().toString())
 
             } catch (e: Exception) {

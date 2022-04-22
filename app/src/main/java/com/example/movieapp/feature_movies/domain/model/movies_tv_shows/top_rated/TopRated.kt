@@ -1,4 +1,4 @@
-package com.example.movieapp.feature_movies.domain.model.top_rated
+package com.example.movieapp.feature_movies.domain.model.movies_tv_shows.top_rated
 
 data class TopRated(
     val page: Double?,

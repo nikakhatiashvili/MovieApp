@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.example.movieapp.common.extensions.collect
-import com.example.movieapp.feature_movies.domain.model.latest.UpcomingMovies
+import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.UpcomingMovies
 import com.example.movieapp.feature_movies.domain.utils.Resource
-import com.example.movieapp.feature_movies.domain.model.popular.Popular
-import com.example.movieapp.feature_movies.domain.use_cases.movies.MoviesUseCase
-import com.example.movieapp.feature_movies.domain.model.top_rated.TopRated
+import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
+import com.example.movieapp.feature_movies.domain.use_cases.movie.movies.MoviesUseCase
+import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.top_rated.TopRated
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(

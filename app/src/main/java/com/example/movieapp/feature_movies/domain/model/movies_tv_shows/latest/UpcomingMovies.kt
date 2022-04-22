@@ -1,4 +1,4 @@
-package com.example.movieapp.feature_movies.domain.model.latest
+package com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest
 
 data class UpcomingMovies(
     val page: Int,
