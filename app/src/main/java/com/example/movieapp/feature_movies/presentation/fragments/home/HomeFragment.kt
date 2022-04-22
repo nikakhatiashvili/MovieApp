@@ -15,9 +15,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    override fun start() {
-        homeViewModel.getMovies()
-    }
 
     override fun observers() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -27,15 +24,34 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 
                     }
                     is Resource.Success -> {
-                        binding.tvText.text = it.data.toString()
+//                        binding.tvText.text = it.data.toString()
                     }
 
                     is Resource.Error -> {
+//                        binding.tvText.text = "ERROR"
+                    }
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.popularMovies.collectLatest {
+                when(it){
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        binding.tvText.text = it.data.toString()
+                    }
+                    is Resource.Error ->{
                         binding.tvText.text = "ERROR"
                     }
                 }
             }
         }
+    }
+
+    override fun start() {
+
     }
 
 }

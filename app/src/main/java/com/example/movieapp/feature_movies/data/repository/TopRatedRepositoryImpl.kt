@@ -1,6 +1,7 @@
 package com.example.movieapp.feature_movies.data.repository
 
 import com.example.movieapp.feature_movies.data.remote_data.MovieService
+import com.example.movieapp.feature_movies.domain.model.popular.Popular
 import com.example.movieapp.feature_movies.domain.model.top_rated.TopRated
 import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
 import com.example.movieapp.feature_movies.domain.utils.Resource
@@ -15,6 +16,12 @@ class TopRatedRepositoryImpl @Inject constructor(
     override suspend fun topRatedMovies(): Resource<TopRated> {
         return handleResponse.handleResponse {
             apiTopMovie.getAllTopRatedMovies()
+        }
+    }
+
+    override suspend fun popularMovies(): Resource<Popular> {
+        return handleResponse.handleResponse {
+            apiTopMovie.getPopular()
         }
     }
 }
