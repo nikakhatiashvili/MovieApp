@@ -3,6 +3,9 @@ package com.example.movieapp.di
 import com.example.movieapp.feature_movies.data.remote_data.MovieService
 import com.example.movieapp.feature_movies.data.repository.TopRatedRepositoryImpl
 import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
+import com.example.movieapp.feature_movies.domain.use_cases.MoviesUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.PopularUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.TopRatedUseCase
 import com.example.movieapp.feature_movies.domain.utils.Constants.BASE_URL
 import com.example.movieapp.feature_movies.domain.utils.ResponseHandler
 import com.squareup.moshi.Moshi
@@ -34,6 +37,12 @@ object MovieModule {
             )
             .build()
             .create(MovieService::class.java)
+
+    @Provides
+    fun provideUseCases(repo:MoviesRepository): MoviesUseCase{
+        return MoviesUseCase(TopRatedUseCase(repo), PopularUseCase(repo))
+    }
+
 
     @Provides
     @Singleton
