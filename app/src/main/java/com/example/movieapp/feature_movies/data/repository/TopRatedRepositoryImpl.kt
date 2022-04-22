@@ -25,6 +25,7 @@ class TopRatedRepositoryImpl @Inject constructor(
             apiTopMovie.getPopular()
         }
     }
+
     override suspend fun upcomingMovies(): Resource<UpcomingMovies> {
         return handleResponse.handleResponse {
             apiTopMovie.getUpcoming()

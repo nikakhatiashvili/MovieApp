@@ -1,24 +1,24 @@
 package com.example.movieapp.di
 
-import com.example.movieapp.common.utils.Dispatchers
-import com.example.movieapp.feature_movies.data.remote_data.MovieService
-import com.example.movieapp.feature_movies.data.repository.TopRatedRepositoryImpl
-import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
-import com.example.movieapp.feature_movies.domain.use_cases.movies.MoviesUseCase
-import com.example.movieapp.feature_movies.domain.use_cases.popular.PopularUseCase
-import com.example.movieapp.feature_movies.domain.use_cases.top_rated.TopRatedUseCase
-import com.example.movieapp.feature_movies.domain.use_cases.upcoming.UpcomingUseCase
-import com.example.movieapp.feature_movies.domain.utils.Constants.BASE_URL
-import com.example.movieapp.feature_movies.domain.utils.ResponseHandler
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import dagger.hilt.InstallIn
 import javax.inject.Singleton
+import com.squareup.moshi.Moshi
+import dagger.hilt.components.SingletonComponent
+import com.example.movieapp.common.utils.Dispatchers
+import retrofit2.converter.moshi.MoshiConverterFactory
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.example.movieapp.feature_movies.domain.utils.ResponseHandler
+import com.example.movieapp.feature_movies.data.remote_data.MovieService
+import com.example.movieapp.feature_movies.domain.utils.Constants.BASE_URL
+import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
+import com.example.movieapp.feature_movies.domain.use_cases.movies.MoviesUseCase
+import com.example.movieapp.feature_movies.data.repository.TopRatedRepositoryImpl
+import com.example.movieapp.feature_movies.domain.use_cases.popular.PopularUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.upcoming.UpcomingUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.top_rated.TopRatedUseCase
 
 
 @Module
@@ -40,7 +40,11 @@ object MovieModule {
 
     @Provides
     fun provideUseCases(repo: MoviesRepository): MoviesUseCase {
-        return MoviesUseCase(TopRatedUseCase(repo), PopularUseCase(repo), UpcomingUseCase(repo))
+        return MoviesUseCase(
+            topRatedUseCase = TopRatedUseCase(repo),
+            popularUseCase = PopularUseCase(repo),
+            upcomingUseCase = UpcomingUseCase(repo)
+        )
     }
 
 

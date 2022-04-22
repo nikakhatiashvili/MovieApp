@@ -17,7 +17,7 @@ interface ResponseHandler {
                 return Resource.Error(response.errorBody().toString())
 
             } catch (e: Exception) {
-                return Resource.Error("exception")
+                return Resource.Error(e.message.toString())
             }
         }
 
