@@ -13,4 +13,4 @@ data class UpcomingResult(
     val release_date: String,
     val title: String,
     val vote_average: Double,
-    )
+)
