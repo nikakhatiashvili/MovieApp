@@ -6,9 +6,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.example.movieapp.common.extensions.collect
+import com.example.movieapp.feature_movies.domain.model.latest.UpcomingMovies
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.domain.model.popular.Popular
-import com.example.movieapp.feature_movies.domain.use_cases.MoviesUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.movies.MoviesUseCase
 import com.example.movieapp.feature_movies.domain.model.top_rated.TopRated
 
 @HiltViewModel
@@ -23,9 +24,13 @@ class HomeViewModel @Inject constructor(
     private val _popularMovies = MutableStateFlow<Resource<Popular>>(Resource.EmptyData())
     val popularMovies: MutableStateFlow<Resource<Popular>> get() = _popularMovies
 
+    private val _upcomingMovies = MutableStateFlow<Resource<UpcomingMovies>>(Resource.EmptyData())
+    val upcomingMovies: MutableStateFlow<Resource<UpcomingMovies>> get() = _upcomingMovies
+
     init {
         getMovies()
         getPopularMovies()
+        getUpcomingMovies()
     }
 
     private fun getMovies() {
@@ -40,6 +45,13 @@ class HomeViewModel @Inject constructor(
         dispatchers.launchBackground(viewModelScope) {
             collect(moviesUseCase.popularUseCase()) {
                 _popularMovies.value = it
+            }
+        }
+    }
+    private fun getUpcomingMovies() {
+        dispatchers.launchBackground(viewModelScope) {
+            collect(moviesUseCase.upcomingUseCase()) {
+                _upcomingMovies.value = it
             }
         }
     }

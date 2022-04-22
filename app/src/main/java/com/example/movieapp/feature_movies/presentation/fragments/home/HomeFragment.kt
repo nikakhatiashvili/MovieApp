@@ -38,6 +38,19 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 
                 }
                 is Resource.Success -> {
+//                    binding.tvText.text = it.data.toString()
+                }
+                is Resource.Error ->{
+//                    binding.tvText.text = "ERROR"
+                }
+            }
+        }
+        collectFlow(homeViewModel.upcomingMovies) {
+            when(it){
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
                     binding.tvText.text = it.data.toString()
                 }
                 is Resource.Error ->{
