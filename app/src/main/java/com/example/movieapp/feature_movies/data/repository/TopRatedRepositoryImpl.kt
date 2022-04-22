@@ -1,12 +1,12 @@
 package com.example.movieapp.feature_movies.data.repository
 
-import com.example.movieapp.feature_movies.data.remote_data.MovieService
-import com.example.movieapp.feature_movies.domain.model.popular.Popular
-import com.example.movieapp.feature_movies.domain.model.top_rated.TopRated
-import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
+import javax.inject.Inject
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.domain.utils.ResponseHandler
-import javax.inject.Inject
+import com.example.movieapp.feature_movies.domain.model.popular.Popular
+import com.example.movieapp.feature_movies.data.remote_data.MovieService
+import com.example.movieapp.feature_movies.domain.model.top_rated.TopRated
+import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
 
 class TopRatedRepositoryImpl @Inject constructor(
     private val apiTopMovie: MovieService,

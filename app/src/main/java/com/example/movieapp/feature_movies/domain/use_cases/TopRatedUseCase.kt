@@ -1,7 +1,5 @@
 package com.example.movieapp.feature_movies.domain.use_cases
 
-
-
 import com.example.movieapp.feature_movies.domain.model.top_rated.TopRated
 import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
 import com.example.movieapp.feature_movies.domain.utils.Resource

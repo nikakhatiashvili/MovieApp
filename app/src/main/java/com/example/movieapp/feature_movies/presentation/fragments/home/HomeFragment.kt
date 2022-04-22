@@ -3,6 +3,7 @@ package com.example.movieapp.feature_movies.presentation.fragments.home
 import android.util.Log.d
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.movieapp.common.extensions.collectFlow
 import com.example.movieapp.databinding.HomeFragmentBinding
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.presentation.BaseFragment
@@ -17,34 +18,30 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 
 
     override fun observers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.movies.collectLatest {
-                when (it) {
-                    is Resource.Loading -> {
+        collectFlow(homeViewModel.movies) {
+            when (it) {
+                is Resource.Loading -> {
 
-                    }
-                    is Resource.Success -> {
+                }
+                is Resource.Success -> {
 //                        binding.tvText.text = it.data.toString()
-                    }
+                }
 
-                    is Resource.Error -> {
+                is Resource.Error -> {
 //                        binding.tvText.text = "ERROR"
-                    }
                 }
             }
         }
-        viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.popularMovies.collectLatest {
-                when(it){
-                    is Resource.Loading -> {
+        collectFlow(homeViewModel.popularMovies) {
+            when(it){
+                is Resource.Loading -> {
 
-                    }
-                    is Resource.Success -> {
-                        binding.tvText.text = it.data.toString()
-                    }
-                    is Resource.Error ->{
-                        binding.tvText.text = "ERROR"
-                    }
+                }
+                is Resource.Success -> {
+                    binding.tvText.text = it.data.toString()
+                }
+                is Resource.Error ->{
+                    binding.tvText.text = "ERROR"
                 }
             }
         }

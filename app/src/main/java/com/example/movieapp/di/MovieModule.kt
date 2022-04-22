@@ -1,5 +1,6 @@
 package com.example.movieapp.di
 
+import com.example.movieapp.common.utils.Dispatchers
 import com.example.movieapp.feature_movies.data.remote_data.MovieService
 import com.example.movieapp.feature_movies.data.repository.TopRatedRepositoryImpl
 import com.example.movieapp.feature_movies.domain.repository.MoviesRepository
@@ -39,7 +40,7 @@ object MovieModule {
             .create(MovieService::class.java)
 
     @Provides
-    fun provideUseCases(repo:MoviesRepository): MoviesUseCase{
+    fun provideUseCases(repo: MoviesRepository): MoviesUseCase {
         return MoviesUseCase(TopRatedUseCase(repo), PopularUseCase(repo))
     }
 
@@ -55,7 +56,9 @@ object MovieModule {
 
     @Provides
     @Singleton
-    fun provideResponseHandler(): ResponseHandler {
-        return ResponseHandler.Base()
-    }
+    fun provideResponseHandler(): ResponseHandler = ResponseHandler.Base()
+
+    @Provides
+    @Singleton
+    fun provideDispatchers(): Dispatchers = Dispatchers.Base()
 }
