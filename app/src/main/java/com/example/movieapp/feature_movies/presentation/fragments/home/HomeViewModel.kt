@@ -57,27 +57,4 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-
-//    private fun launchMovies() {
-//        dispatchers.launchBackground(viewModelScope) {
-//
-//            launch {
-//                collect(moviesUseCase.topRatedUseCase()) {
-//                    _movies.value = it
-//                }
-//            }
-//
-//            launch {
-//                collect(moviesUseCase.popularUseCase()) {
-//                    _popularMovies.value = it
-//                }
-//            }
-//
-//            launch {
-//                collect(moviesUseCase.upcomingUseCase()) {
-//                    _upcomingMovies.value = it
-//                }
-//            }
-//        }
-//    }
 }
