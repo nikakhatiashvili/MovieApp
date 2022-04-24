@@ -24,6 +24,7 @@ import com.example.movieapp.feature_movies.domain.use_cases.movie.upcoming.Upcom
 import com.example.movieapp.feature_movies.domain.use_cases.movie.top_rated.TopRatedUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.search.multi_search.MultiSearchUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.search.search.SearchUseCase
+import com.example.movieapp.feature_movies.domain.utils.DelayProvider
 
 
 @Module
@@ -32,27 +33,22 @@ object MovieModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitCurrency(): MovieService =
-        Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(
-                MoshiConverterFactory.create(
-                    Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-                )
+    fun provideBaseRetrofit(): Retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+        .addConverterFactory(
+            MoshiConverterFactory.create(
+                Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
             )
-            .build()
-            .create(MovieService::class.java)
+        ).build()
 
     @Provides
     @Singleton
-    fun provideRetrofit(): SearchService =
-        Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(
-                MoshiConverterFactory.create(
-                    Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-                )
-            )
-            .build()
-            .create(SearchService::class.java)
+    fun provideRetrofitCurrency(baseRetrofit: Retrofit): MovieService =
+        baseRetrofit.create(MovieService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(baseRetrofit: Retrofit): SearchService =
+        baseRetrofit.create(SearchService::class.java)
 
     @Provides
     fun provideSearchUseCases(repo: SearchRepository): SearchUseCase {
@@ -95,4 +91,7 @@ object MovieModule {
     @Provides
     @Singleton
     fun provideDispatchers(): Dispatchers = Dispatchers.Base()
+
+    @Provides
+    fun provideDelay(): DelayProvider = DelayProvider.Base()
 }

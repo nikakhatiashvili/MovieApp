@@ -17,9 +17,9 @@ class SearchRepositoryImpl @Inject constructor(
     private val handleResponse: ResponseHandler
 ) : SearchRepository {
 
-    override suspend fun getSearch(search: String): Resource<Search> {
+    override suspend fun getSearch(query: String): Resource<Search> {
         return handleResponse.handleResponse {
-            apiTopMovie.getSearch(search)
+            apiTopMovie.getSearch(query)
         }
     }
 }

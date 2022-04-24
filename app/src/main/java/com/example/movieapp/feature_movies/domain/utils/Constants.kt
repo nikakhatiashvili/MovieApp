@@ -9,6 +9,5 @@ object Constants {
     const val GET_SEARCH = "search/multi?api_key=7f39984135c9621c058c979457e46b42"
 
 
-
     const val BASE_URL = "https://api.themoviedb.org/3/"
 }

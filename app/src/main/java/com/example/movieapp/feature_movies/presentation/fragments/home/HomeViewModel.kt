@@ -29,10 +29,9 @@ class HomeViewModel @Inject constructor(
     val upcomingMovies: MutableStateFlow<Resource<UpcomingMovies>> get() = _upcomingMovies
 
     init {
-//        getMovies()
-//        getPopularMovies()
-//        getUpcomingMovies()
-        launchMovies()
+        getMovies()
+        getPopularMovies()
+        getUpcomingMovies()
     }
 
     private fun getMovies() {
@@ -59,26 +58,26 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun launchMovies() {
-        dispatchers.launchBackground(viewModelScope) {
-
-            launch {
-                collect(moviesUseCase.topRatedUseCase()) {
-                    _movies.value = it
-                }
-            }
-
-            launch {
-                collect(moviesUseCase.popularUseCase()) {
-                    _popularMovies.value = it
-                }
-            }
-
-            launch {
-                collect(moviesUseCase.upcomingUseCase()) {
-                    _upcomingMovies.value = it
-                }
-            }
-        }
-    }
+//    private fun launchMovies() {
+//        dispatchers.launchBackground(viewModelScope) {
+//
+//            launch {
+//                collect(moviesUseCase.topRatedUseCase()) {
+//                    _movies.value = it
+//                }
+//            }
+//
+//            launch {
+//                collect(moviesUseCase.popularUseCase()) {
+//                    _popularMovies.value = it
+//                }
+//            }
+//
+//            launch {
+//                collect(moviesUseCase.upcomingUseCase()) {
+//                    _upcomingMovies.value = it
+//                }
+//            }
+//        }
+//    }
 }

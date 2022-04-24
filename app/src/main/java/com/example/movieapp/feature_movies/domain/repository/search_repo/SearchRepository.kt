@@ -9,6 +9,5 @@ import retrofit2.http.Query
 
 interface SearchRepository {
 
-    @GET(GET_SEARCH)
-    suspend  fun getSearch(@Query("query") search: String): Resource<Search>
+    suspend fun getSearch(query: String): Resource<Search>
 }

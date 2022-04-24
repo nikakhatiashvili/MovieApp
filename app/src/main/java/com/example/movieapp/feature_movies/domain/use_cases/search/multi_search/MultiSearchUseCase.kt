@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MultiSearchUseCase @Inject constructor(private val searchRepository: SearchRepository) {
-    operator fun invoke(search:String): Flow<Resource<Search>> = flow {
+    operator fun invoke(query: String): Flow<Resource<Search>> = flow {
         try {
             emit(Resource.Loading())
-            emit(searchRepository.getSearch(search))
+            emit(searchRepository.getSearch(query))
         } catch (e: Exception) {
             emit(Resource.Error(e.message.toString()))
         }

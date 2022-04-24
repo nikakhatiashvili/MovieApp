@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 
                 }
                 is Resource.Success -> {
-                        binding.tvText.text = it.data.toString()
+                    binding.tvText.text = it.data?.results?.get(1)!!.title
                 }
 
                 is Resource.Error -> {
@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 
                 }
                 is Resource.Success -> {
-//                    binding.tvText.text = it.data.toString()
+                    binding.tvText2.text = it.data?.results?.get(0)!!.title
                 }
                 is Resource.Error ->{
 //                    binding.tvText.text = "ERROR"

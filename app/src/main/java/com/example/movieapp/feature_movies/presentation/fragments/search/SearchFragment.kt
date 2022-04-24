@@ -21,12 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<SearchFragmentBinding>(SearchFragmentBinding::inflate) {
     private val searchViewModel: SearchViewModel by viewModels()
-    override fun start() {
-        binding.searchEt.doAfterTextChanged{
-            d("iiteasdasd",it.toString())
-            searchViewModel.searchs(it.toString())
-        }
 
+    override fun start() {
+        multiSearch()
     }
 
     override fun observers() {
@@ -36,13 +33,19 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>(SearchFragmentBinding
 
                 }
                 is Resource.Success -> {
-                        binding.txt.text = it.data.toString()
+                    binding.txt.text = it.data.toString()
                 }
 
                 is Resource.Error -> {
-                        binding.txt.text = it.message
+                    binding.txt.text = it.message
                 }
             }
+        }
+    }
+
+    private fun multiSearch() {
+        binding.searchEt.doAfterTextChanged { queryInput ->
+            searchViewModel.searchCase(queryInput.toString())
         }
     }
 
