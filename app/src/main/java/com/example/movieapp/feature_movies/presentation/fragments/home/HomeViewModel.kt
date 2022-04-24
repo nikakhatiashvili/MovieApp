@@ -11,6 +11,7 @@ import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
 import com.example.movieapp.feature_movies.domain.use_cases.movie.movies.MoviesUseCase
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.top_rated.TopRated
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -28,9 +29,10 @@ class HomeViewModel @Inject constructor(
     val upcomingMovies: MutableStateFlow<Resource<UpcomingMovies>> get() = _upcomingMovies
 
     init {
-        getMovies()
-        getPopularMovies()
-        getUpcomingMovies()
+//        getMovies()
+//        getPopularMovies()
+//        getUpcomingMovies()
+        launchMovies()
     }
 
     private fun getMovies() {
@@ -48,10 +50,34 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
     private fun getUpcomingMovies() {
         dispatchers.launchBackground(viewModelScope) {
             collect(moviesUseCase.upcomingUseCase()) {
                 _upcomingMovies.value = it
+            }
+        }
+    }
+
+    private fun launchMovies() {
+        dispatchers.launchBackground(viewModelScope) {
+
+            launch {
+                collect(moviesUseCase.topRatedUseCase()) {
+                    _movies.value = it
+                }
+            }
+
+            launch {
+                collect(moviesUseCase.popularUseCase()) {
+                    _popularMovies.value = it
+                }
+            }
+
+            launch {
+                collect(moviesUseCase.upcomingUseCase()) {
+                    _upcomingMovies.value = it
+                }
             }
         }
     }
