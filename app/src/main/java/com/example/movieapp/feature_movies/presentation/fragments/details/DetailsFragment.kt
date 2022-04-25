@@ -16,11 +16,22 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
     private val detailsViewModel: DetailsViewModel by viewModels()
     override fun start() {
         d("AAAA", argsArticle.id.toString())
-        detailsViewModel.searchDetails(argsArticle.id)
+        detailsViewModel.getDetails(argsArticle.id)
+        detailsViewModel.getSimilarMovies(argsArticle.id)
     }
 
     override fun observers() {
         collectFlow(detailsViewModel.details) {
+            when (it) {
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+//                    d("AAAAAAAAA", it.data.toString())
+                }
+            }
+        }
+        collectFlow(detailsViewModel.detailsSimilar) {
             when (it) {
                 is Resource.Loading -> {
 

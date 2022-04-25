@@ -22,8 +22,9 @@ import com.example.movieapp.feature_movies.data.repository.movie_repo.TopRatedRe
 import com.example.movieapp.feature_movies.data.repository.search_repo.SearchRepositoryImpl
 import com.example.movieapp.feature_movies.domain.repository.details_repo.DetailsRepository
 import com.example.movieapp.feature_movies.domain.repository.search_repo.SearchRepository
-import com.example.movieapp.feature_movies.domain.use_cases.details.detailsInfo.DetailsUseCase
-import com.example.movieapp.feature_movies.domain.use_cases.details.detailsInfo.DetailsUseCaseClass
+import com.example.movieapp.feature_movies.domain.use_cases.detail.DetailsUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.detail.DetailsUseCaseClass
+import com.example.movieapp.feature_movies.domain.use_cases.detail.SimilarMoviesUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.movie.popular.PopularUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.movie.upcoming.UpcomingUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.movie.top_rated.TopRatedUseCase
@@ -61,8 +62,6 @@ object MovieModule {
         baseRetrofit.create(DetailsService::class.java)
 
 
-
-
     @Provides
     fun provideSearchUseCases(repo: SearchRepository): SearchUseCaseClass {
         return SearchUseCaseClass(
@@ -81,11 +80,11 @@ object MovieModule {
 
     @Provides
     fun providesDetailsUseCases(repo: DetailsRepository): DetailsUseCaseClass {
-        return DetailsUseCaseClass(detailsUseCase = DetailsUseCase(repo))
+        return DetailsUseCaseClass(
+            detailsUseCase = DetailsUseCase(repo),
+            similarMoviesUseCase = SimilarMoviesUseCase(repo)
+        )
     }
-
-
-
 
 
     @Provides
@@ -96,7 +95,6 @@ object MovieModule {
     ): SearchRepository {
         return SearchRepositoryImpl(searchService, responseHandler)
     }
-
 
 
     @Provides
@@ -116,12 +114,6 @@ object MovieModule {
     ): DetailsRepository {
         return DetailsRepositoryImpl(detailsService, responseHandler)
     }
-
-
-
-
-
-
 
 
     @Provides
