@@ -18,6 +18,7 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
         d("AAAA", argsArticle.id.toString())
         detailsViewModel.getDetails(argsArticle.id)
         detailsViewModel.getSimilarMovies(argsArticle.id)
+        detailsViewModel.getMovieCast(argsArticle.id)
     }
 
     override fun observers() {
@@ -31,7 +32,17 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
                 }
             }
         }
-        collectFlow(detailsViewModel.detailsSimilar) {
+//        collectFlow(detailsViewModel.detailsSimilar) {
+//            when (it) {
+//                is Resource.Loading -> {
+//
+//                }
+//                is Resource.Success -> {
+//                    d("AAAAAAAAA", it.data.toString())
+//                }
+//            }
+//        }
+        collectFlow(detailsViewModel.detailsCast) {
             when (it) {
                 is Resource.Loading -> {
 

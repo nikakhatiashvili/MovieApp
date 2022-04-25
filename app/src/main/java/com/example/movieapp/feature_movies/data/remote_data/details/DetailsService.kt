@@ -1,5 +1,6 @@
 package com.example.movieapp.feature_movies.data.remote_data.details
 
+import com.example.movieapp.feature_movies.domain.model.details.cast.DetailCast
 import com.example.movieapp.feature_movies.domain.model.details.movie.DetailMovie
 import com.example.movieapp.feature_movies.domain.model.details.similar.DetailsSimilar
 import com.example.movieapp.feature_movies.domain.model.search.Search
@@ -20,4 +21,9 @@ interface DetailsService {
     suspend fun getSimilarMovies(
         @Path("movie_id") id: Int,
     ): Response<DetailsSimilar>
+
+    @GET(Constants.DETAILS_MOVIE_CAST)
+    suspend fun getMoviesCast(
+        @Path("movie_id") id: Int,
+    ): Response<DetailCast>
 }

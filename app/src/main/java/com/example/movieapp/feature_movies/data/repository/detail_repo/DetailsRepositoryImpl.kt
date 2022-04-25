@@ -2,6 +2,7 @@ package com.example.movieapp.feature_movies.data.repository.detail_repo
 
 import com.example.movieapp.feature_movies.data.remote_data.details.DetailsService
 import com.example.movieapp.feature_movies.data.remote_data.movie_tv_shows.MovieService
+import com.example.movieapp.feature_movies.domain.model.details.cast.DetailCast
 import com.example.movieapp.feature_movies.domain.model.details.movie.DetailMovie
 import com.example.movieapp.feature_movies.domain.model.details.similar.DetailsSimilar
 import com.example.movieapp.feature_movies.domain.repository.details_repo.DetailsRepository
@@ -23,6 +24,11 @@ class DetailsRepositoryImpl @Inject constructor(
     override suspend fun getSimilarMovies(id: Int): Resource<DetailsSimilar> {
         return handleResponse.handleResponse {
             details.getSimilarMovies(id)
+        }
+    }
+    override suspend fun getMoviesCast(id: Int): Resource<DetailCast> {
+        return handleResponse.handleResponse {
+            details.getMoviesCast(id)
         }
     }
 
