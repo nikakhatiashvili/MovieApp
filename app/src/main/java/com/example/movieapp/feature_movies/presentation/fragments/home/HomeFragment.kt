@@ -57,6 +57,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
     }
 
     override fun start() {
+        navigateToDetails()
+    }
+
+    private fun navigateToDetails() {
 
     }
 

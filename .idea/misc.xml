@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/RealMovieApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/RealMovieApp/app/src/main/res/layout/details_fragment.xml" value="0.26875" />
         <entry key="..\:/RealMovieApp/app/src/main/res/layout/home_fragment.xml" value="0.25" />
+        <entry key="..\:/RealMovieApp/app/src/main/res/layout/search_fragment.xml" value="0.26875" />
         <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/layout/search_fragment.xml" value="0.36666666666666664" />
       </map>
     </option>

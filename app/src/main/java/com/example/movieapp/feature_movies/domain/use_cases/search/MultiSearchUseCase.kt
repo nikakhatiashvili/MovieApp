@@ -1,9 +1,6 @@
-package com.example.movieapp.feature_movies.domain.use_cases.search.multi_search
+package com.example.movieapp.feature_movies.domain.use_cases.search
 
-import android.util.Log.d
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
 import com.example.movieapp.feature_movies.domain.model.search.Search
-import com.example.movieapp.feature_movies.domain.repository.movie_repo.MoviesRepository
 import com.example.movieapp.feature_movies.domain.repository.search_repo.SearchRepository
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow

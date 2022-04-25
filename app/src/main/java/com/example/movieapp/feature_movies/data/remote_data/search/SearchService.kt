@@ -1,8 +1,6 @@
 package com.example.movieapp.feature_movies.data.remote_data.search
 
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.UpcomingMovies
 import com.example.movieapp.feature_movies.domain.model.search.Search
-import com.example.movieapp.feature_movies.domain.utils.Constants
 import com.example.movieapp.feature_movies.domain.utils.Constants.GET_SEARCH
 import retrofit2.Response
 import retrofit2.http.GET
