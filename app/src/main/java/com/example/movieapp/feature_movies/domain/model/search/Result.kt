@@ -1,5 +1,9 @@
 package com.example.movieapp.feature_movies.domain.model.search
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Result(
     val adult: Boolean?,
     val backdrop_path: String?,
@@ -11,7 +15,7 @@ data class Result(
     val known_for_department: String?,
     val media_type: String?,
     val name: String?,
-    val origin_country: List<Any>?,
+    val origin_country: List<String>?,
     val original_language: String?,
     val original_name: String?,
     val original_title: String?,
@@ -24,4 +28,4 @@ data class Result(
     val video: Boolean?,
     val vote_average: Double?,
     val vote_count: Int?
-)
+): Parcelable

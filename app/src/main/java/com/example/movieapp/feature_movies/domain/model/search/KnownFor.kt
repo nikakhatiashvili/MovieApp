@@ -1,5 +1,9 @@
 package com.example.movieapp.feature_movies.domain.model.search
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class KnownFor(
     val adult: Boolean?,
     val backdrop_path: String?,
@@ -19,4 +23,4 @@ data class KnownFor(
     val video: Boolean?,
     val vote_average: Double?,
     val vote_count: Int?
-)
+): Parcelable

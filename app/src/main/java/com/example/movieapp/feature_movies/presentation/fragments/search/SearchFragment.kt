@@ -1,21 +1,12 @@
 package com.example.movieapp.feature_movies.presentation.fragments.search
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import android.util.Log.d
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import com.example.movieapp.R
+import androidx.navigation.fragment.findNavController
 import com.example.movieapp.common.extensions.collectFlow
-import com.example.movieapp.databinding.HomeFragmentBinding
 import com.example.movieapp.databinding.SearchFragmentBinding
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.presentation.BaseFragment
-import com.example.movieapp.feature_movies.presentation.fragments.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +15,9 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>(SearchFragmentBinding
 
     override fun start() {
         multiSearch()
+        binding.button2.setOnClickListener {
+            navigateToDetails()
+        }
     }
 
     override fun observers() {
@@ -47,6 +41,11 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>(SearchFragmentBinding
         binding.searchEt.doAfterTextChanged { queryInput ->
             searchViewModel.searchCase(queryInput.toString())
         }
+    }
+
+    private fun navigateToDetails() {
+        val action = SearchFragmentDirections.actionSearchFragmentToDetailsFragment(10195)
+        findNavController().navigate(action)
     }
 
 
