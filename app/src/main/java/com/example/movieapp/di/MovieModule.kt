@@ -1,5 +1,6 @@
 package com.example.movieapp.di
 
+import com.example.movieapp.common.utils.Communcation
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -128,4 +129,9 @@ object MovieModule {
 
     @Provides
     fun provideDelay(): DelayProvider = DelayProvider.Base()
+
+    @Provides
+    fun provideCommuncation(): Communcation {
+        return Communcation.Base()
+    }
 }
