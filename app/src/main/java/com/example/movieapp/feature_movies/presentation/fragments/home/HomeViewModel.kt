@@ -1,22 +1,24 @@
 package com.example.movieapp.feature_movies.presentation.fragments.home
 
-import javax.inject.Inject
+import android.util.Log.d
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import dagger.hilt.android.lifecycle.HiltViewModel
 import com.example.movieapp.common.extensions.collect
+import com.example.movieapp.common.utils.Communcation
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.UpcomingMovies
-import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
-import com.example.movieapp.feature_movies.domain.use_cases.movie.movies.MoviesUseCase
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.top_rated.TopRated
-import kotlinx.coroutines.launch
+import com.example.movieapp.feature_movies.domain.use_cases.movie.movies.MoviesUseCase
+import com.example.movieapp.feature_movies.domain.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val moviesUseCase: MoviesUseCase,
-    private val dispatchers: com.example.movieapp.common.utils.Dispatchers
+    private val dispatchers: com.example.movieapp.common.utils.Dispatchers,
+    private val communcation: Communcation
 ) : ViewModel() {
 
     private val _movies = MutableStateFlow<Resource<TopRated>>(Resource.EmptyData())
@@ -30,8 +32,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         getMovies()
-        getPopularMovies()
-        getUpcomingMovies()
     }
 
     private fun getMovies() {
@@ -39,22 +39,14 @@ class HomeViewModel @Inject constructor(
             collect(moviesUseCase.topRatedUseCase()) {
                 _movies.value = it
             }
-        }
-    }
-
-    private fun getPopularMovies() {
-        dispatchers.launchBackground(viewModelScope) {
             collect(moviesUseCase.popularUseCase()) {
                 _popularMovies.value = it
             }
-        }
-    }
-
-    private fun getUpcomingMovies() {
-        dispatchers.launchBackground(viewModelScope) {
             collect(moviesUseCase.upcomingUseCase()) {
                 _upcomingMovies.value = it
             }
         }
     }
+
+
 }

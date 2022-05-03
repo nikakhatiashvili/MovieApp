@@ -50,7 +50,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
 //                    binding.tvText.text = it.data.toString()
                 }
                 is Resource.Error ->{
-                    binding.tvText.text = "ERROR"
+//                    binding.tvText.text = "ERROR"
                 }
             }
         }
