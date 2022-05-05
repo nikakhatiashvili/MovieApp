@@ -35,14 +35,16 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
-    fun getSimilarMovies(id:Int){
+
+    fun getSimilarMovies(id: Int) {
         dispatchers.launchBackground(viewModelScope) {
             collect(detailUseCaseClass.similarMoviesUseCase.invoke(id)) {
                 _detailsSimilar.value = it
             }
         }
     }
-    fun getMovieCast(id:Int){
+
+    fun getMovieCast(id: Int) {
         dispatchers.launchBackground(viewModelScope) {
             collect(detailUseCaseClass.detailMovieCast.invoke(id)) {
                 _detailsCast.value = it

@@ -1,6 +1,8 @@
 package com.example.movieapp.di
 
-import com.example.movieapp.common.utils.Communcation
+
+import android.content.Context
+import com.example.movieapp.common.utils.Communication
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -21,6 +23,7 @@ import com.example.movieapp.feature_movies.domain.repository.movie_repo.MoviesRe
 import com.example.movieapp.feature_movies.domain.use_cases.movie.movies.MoviesUseCase
 import com.example.movieapp.feature_movies.data.repository.movie_repo.TopRatedRepositoryImpl
 import com.example.movieapp.feature_movies.data.repository.search_repo.SearchRepositoryImpl
+import com.example.movieapp.feature_movies.domain.model.search.Search
 import com.example.movieapp.feature_movies.domain.repository.details_repo.DetailsRepository
 import com.example.movieapp.feature_movies.domain.repository.search_repo.SearchRepository
 import com.example.movieapp.feature_movies.domain.use_cases.detail.DetailMovieCastUseCase
@@ -33,6 +36,10 @@ import com.example.movieapp.feature_movies.domain.use_cases.movie.top_rated.TopR
 import com.example.movieapp.feature_movies.domain.use_cases.search.MultiSearchUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.search.SearchUseCaseClass
 import com.example.movieapp.feature_movies.domain.utils.DelayProvider
+import com.example.movieapp.feature_movies.domain.utils.ProvideInternetConnectionChecker
+import com.example.movieapp.feature_movies.domain.utils.Resource
+import com.example.movieapp.feature_movies.presentation.fragments.home.FullResource
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 
 @Module
@@ -121,7 +128,8 @@ object MovieModule {
 
     @Provides
     @Singleton
-    fun provideResponseHandler(): ResponseHandler = ResponseHandler.Base()
+    fun provideResponseHandler(provideInternetConnectionChecker: ProvideInternetConnectionChecker): ResponseHandler =
+        ResponseHandler.Base(provideInternetConnectionChecker)
 
     @Provides
     @Singleton
@@ -131,7 +139,14 @@ object MovieModule {
     fun provideDelay(): DelayProvider = DelayProvider.Base()
 
     @Provides
-    fun provideCommuncation(): Communcation {
-        return Communcation.Base()
-    }
+    fun provideCommunication(): Communication<FullResource> = Communication.Base(FullResource.Empty)
+
+    @Provides
+    fun provideSearchCommunication(): Communication<Resource<Search>> =
+        Communication.Base(Resource.Loading())
+
+    @Provides
+    fun provideInternetCheckConnection(@ApplicationContext context: Context): ProvideInternetConnectionChecker =
+        ProvideInternetConnectionChecker.NetworkHelper(context)
+
 }

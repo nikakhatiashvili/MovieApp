@@ -1,16 +1,13 @@
 package com.example.movieapp.common.utils
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.UpcomingMovies
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.top_rated.TopRated
-import com.example.movieapp.feature_movies.domain.utils.Resource
+import com.example.movieapp.feature_movies.presentation.fragments.home.FullResource
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.CoroutineScope
+import javax.inject.Inject
 
 interface Dispatchers {
     fun launchUI(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
@@ -42,49 +39,23 @@ interface Dispatchers {
 }
 
 
-interface Communcation {
+interface Communication<T> {
 
-    fun map(news: Resource<TopRated>)
-    fun observeNews(owner: LifecycleOwner, observer: Observer<Resource<TopRated>>)
+    fun map(news: T)
+    suspend fun collectMovies(collector: FlowCollector<T>)
 
-    fun mapPopular(news: Resource<Popular>)
-    fun observePopular(owner: LifecycleOwner, observer: Observer<Resource<Popular>>)
+    class Base<T>(data: T): Communication<T> {
 
-    fun mapMovies(news: Resource<UpcomingMovies>)
-    fun observeMovies(owner: LifecycleOwner, observer: Observer<Resource<UpcomingMovies>>)
+        private val topRatedLiveData = MutableStateFlow(data)
 
-    class Base: Communcation {
-
-        private val topRatedLiveData = MutableLiveData<Resource<TopRated>>()
-        private val popularLiveData = MutableLiveData<Resource<Popular>>()
-        private val upcomingMoviesLiveData = MutableLiveData<Resource<UpcomingMovies>>()
-
-        override fun map(news: Resource<TopRated>) {
-            topRatedLiveData.postValue(news)
+        override fun map(news: T) {
+            topRatedLiveData.value = news
         }
 
-        override fun observeNews(owner: LifecycleOwner, observer: Observer<Resource<TopRated>>) {
-            topRatedLiveData.observe(owner, observer)
-        }
-
-        override fun mapPopular(news: Resource<Popular>) {
-            popularLiveData.postValue(news)
-        }
-
-        override fun observePopular(owner: LifecycleOwner, observer: Observer<Resource<Popular>>) {
-            popularLiveData.observe(owner, observer)
-        }
-
-        override fun mapMovies(news: Resource<UpcomingMovies>) {
-            upcomingMoviesLiveData.postValue(news)
-        }
-
-        override fun observeMovies(
-            owner: LifecycleOwner,
-            observer: Observer<Resource<UpcomingMovies>>
-        ) {
-            upcomingMoviesLiveData.observe(owner, observer)
+        override suspend fun collectMovies(collector: FlowCollector<T>) {
+            topRatedLiveData.collect(collector)
         }
 
     }
 }
+
