@@ -20,9 +20,9 @@ class TopRatedRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun popularMovies(): Resource<Popular> {
+    override suspend fun popularMovies(page:Int): Resource<Popular> {
         return handleResponse.handleResponse {
-            apiTopMovie.getPopular()
+            apiTopMovie.getPopular(page)
         }
     }
 

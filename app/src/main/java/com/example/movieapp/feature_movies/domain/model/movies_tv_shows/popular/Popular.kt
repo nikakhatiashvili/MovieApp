@@ -6,3 +6,4 @@ data class Popular(
     val total_pages: Int?,
     val total_results: Int?
 )
+class InvalidRepoException(message: String?) : Exception(message)

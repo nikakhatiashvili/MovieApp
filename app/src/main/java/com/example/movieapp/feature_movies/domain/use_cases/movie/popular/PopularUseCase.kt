@@ -8,12 +8,7 @@ import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.
 import com.example.movieapp.feature_movies.domain.repository.movie_repo.MoviesRepository
 
 class PopularUseCase @Inject constructor(private val popularRepository: MoviesRepository) {
-    operator fun invoke(): Flow<Resource<Popular>> = flow {
-        try {
-            emit(Resource.Loading())
-            emit(popularRepository.popularMovies())
-        } catch (e: Exception) {
-            emit(Resource.Error(e.message.toString()))
-        }
+    suspend operator fun invoke(page:Int): Resource<Popular>  {
+        return popularRepository.popularMovies(page)
     }
 }

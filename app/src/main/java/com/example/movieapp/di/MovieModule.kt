@@ -2,7 +2,7 @@ package com.example.movieapp.di
 
 
 import android.content.Context
-import com.example.movieapp.common.utils.Communication
+
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -37,8 +37,7 @@ import com.example.movieapp.feature_movies.domain.use_cases.search.MultiSearchUs
 import com.example.movieapp.feature_movies.domain.use_cases.search.SearchUseCaseClass
 import com.example.movieapp.feature_movies.domain.utils.DelayProvider
 import com.example.movieapp.feature_movies.domain.utils.ProvideInternetConnectionChecker
-import com.example.movieapp.feature_movies.domain.utils.Resource
-import com.example.movieapp.feature_movies.presentation.fragments.home.FullResource
+
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 
@@ -138,12 +137,6 @@ object MovieModule {
     @Provides
     fun provideDelay(): DelayProvider = DelayProvider.Base()
 
-    @Provides
-    fun provideCommunication(): Communication<FullResource> = Communication.Base(FullResource.Empty)
-
-    @Provides
-    fun provideSearchCommunication(): Communication<Resource<Search>> =
-        Communication.Base(Resource.Loading())
 
     @Provides
     fun provideInternetCheckConnection(@ApplicationContext context: Context): ProvideInternetConnectionChecker =

@@ -2,16 +2,21 @@ package com.example.movieapp.feature_movies.presentation.fragments.home
 
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movieapp.R
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.movieapp.common.extensions.collectFlow
 import com.example.movieapp.databinding.HomeFragmentBinding
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
+
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.presentation.BaseFragment
 import com.example.movieapp.feature_movies.presentation.fragments.home.viewpager.HorizontalMarginItemDecoration
 import com.example.movieapp.feature_movies.presentation.fragments.home.viewpager.ViewPagerAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -54,24 +59,14 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(HomeFragmentBinding::infl
         }
 
     }
-    fun setDataToAdapter(popular: Popular){
-        viewPager.data = popular.results!!
-    }
+
 
     override fun observers() {
         setViewPager()
-        collectFlow(homeViewModel.popularMovies) {
-            when (it) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    setDataToAdapter(it.data!!)
-                    viewPager.data = it.data?.results!!
-//                    binding.tvText2.text = it.data?.results?.get(0)!!.title
-                }
-                is Resource.Error -> {
-//                    binding.tvText.text = "ERROR"
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.state.collectLatest {
+                    viewPager.submitData(it)
                 }
             }
         }

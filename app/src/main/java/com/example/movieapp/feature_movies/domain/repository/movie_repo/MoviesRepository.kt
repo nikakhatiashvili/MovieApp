@@ -7,6 +7,6 @@ import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.U
 
 interface MoviesRepository {
     suspend fun topRatedMovies(): Resource<TopRated>
-    suspend fun popularMovies(): Resource<Popular>
+    suspend fun popularMovies(page:Int): Resource<Popular>
     suspend fun upcomingMovies(): Resource<UpcomingMovies>
 }

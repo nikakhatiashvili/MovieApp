@@ -3,7 +3,7 @@ package com.example.movieapp.feature_movies.presentation.fragments.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.common.extensions.collect
-import com.example.movieapp.common.utils.Communication
+
 import com.example.movieapp.feature_movies.domain.model.search.Search
 import com.example.movieapp.feature_movies.domain.use_cases.search.SearchUseCaseClass
 import com.example.movieapp.feature_movies.domain.utils.DelayProvider
@@ -18,25 +18,20 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchUseCase: SearchUseCaseClass,
     private val dispatchers: com.example.movieapp.common.utils.Dispatchers,
-    private val delay: DelayProvider,
-    private val communication: Communication<Resource<Search>>
 ) : ViewModel() {
+
+    private val _search = MutableStateFlow<Resource<Search>>(Resource.EmptyData())
+    val search: MutableStateFlow<Resource<Search>> get() = _search
 
     private var searchJob: Job? = null
 
     fun searchCase(userInput: String) {
         searchJob?.cancel()
         searchJob = dispatchers.launchBackground(viewModelScope) {
-            delay.provideDelay(delay.getDelayTime())
+            delay(350)
             collect(searchUseCase.searchUseCase(userInput)) {
-                communication.map(it)
+                _search.value = it
             }
-        }
-    }
-
-    fun collectSearchFlow(collector: FlowCollector<Resource<Search>>) {
-        viewModelScope.launch {
-            communication.collectMovies(collector)
         }
     }
 }

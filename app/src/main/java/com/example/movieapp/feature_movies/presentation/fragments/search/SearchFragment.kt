@@ -21,7 +21,7 @@ class SearchFragment : BaseFragment<SearchFragmentBinding>(SearchFragmentBinding
     }
 
     override fun observers() {
-        searchViewModel.collectSearchFlow {
+        collectFlow(searchViewModel.search) {
             when (it) {
                 is Resource.Loading -> {
 
