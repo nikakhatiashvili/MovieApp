@@ -2,12 +2,12 @@ package com.example.movieapp.feature_movies.domain.utils
 
 import kotlinx.coroutines.delay
 
-interface DelayProvider {
+interface ProvideDelay {
 
     suspend fun provideDelay(time: Long)
     fun getDelayTime(): Long
 
-    class Base : DelayProvider {
+    class Base : ProvideDelay {
 
         private val time: Long = 350
 

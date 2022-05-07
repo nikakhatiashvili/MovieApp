@@ -43,16 +43,15 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun collectState(collector: FlowCollector<FullResource>) {
-        viewModelScope.launch {
-            communication.collectMovies(collector)
-        }
+    fun collectState(collector: FlowCollector<FullResource>) = viewModelScope.launch {
+        communication.collectMovies(collector)
     }
+
 
 }
 
 sealed class FullResource {
-    object Empty: FullResource()
+    object Empty : FullResource()
     object Loading : FullResource()
     class Movies(val first: Resource<TopRated>) : FullResource()
     class PopularMovies(val second: Resource<Popular>) : FullResource()

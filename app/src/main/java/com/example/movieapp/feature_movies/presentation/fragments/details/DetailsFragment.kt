@@ -21,17 +21,17 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
         detailsViewModel.getMovieCast(argsArticle.id)
     }
 
-    override fun observers() {
-        collectFlow(detailsViewModel.details) {
-            when (it) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
+//    override fun observers() {
+//        collectFlow(detailsViewModel.details) {
+//            when (it) {
+//                is Resource.Loading -> {
+//
+//                }
+//                is Resource.Success -> {
 //                    d("AAAAAAAAA", it.data.toString())
-                }
-            }
-        }
+//                }
+//            }
+//        }
 //        collectFlow(detailsViewModel.detailsSimilar) {
 //            when (it) {
 //                is Resource.Loading -> {
@@ -42,16 +42,16 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
 //                }
 //            }
 //        }
-        collectFlow(detailsViewModel.detailsCast) {
-            when (it) {
-                is Resource.Loading -> {
-
-                }
-                is Resource.Success -> {
-                    d("AAAAAAAAA", it.data.toString())
-                }
-            }
-        }
-    }
+//        collectFlow(detailsViewModel.detailsCast) {
+//            when (it) {
+//                is Resource.Loading -> {
+//
+//                }
+//                is Resource.Success -> {
+//                    d("AAAAAAAAA", it.data.toString())
+//                }
+//            }
+//        }
+//    }
 
 }

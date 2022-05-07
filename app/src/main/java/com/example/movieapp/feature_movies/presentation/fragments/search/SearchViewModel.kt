@@ -6,19 +6,18 @@ import com.example.movieapp.common.extensions.collect
 import com.example.movieapp.common.utils.Communication
 import com.example.movieapp.feature_movies.domain.model.search.Search
 import com.example.movieapp.feature_movies.domain.use_cases.search.SearchUseCaseClass
-import com.example.movieapp.feature_movies.domain.utils.DelayProvider
+import com.example.movieapp.feature_movies.domain.utils.ProvideDelay
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchUseCase: SearchUseCaseClass,
     private val dispatchers: com.example.movieapp.common.utils.Dispatchers,
-    private val delay: DelayProvider,
+    private val delay: ProvideDelay,
     private val communication: Communication<Resource<Search>>
 ) : ViewModel() {
 
@@ -34,9 +33,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun collectSearchFlow(collector: FlowCollector<Resource<Search>>) {
-        viewModelScope.launch {
-            communication.collectMovies(collector)
-        }
+    fun collectSearchFlow(collector: FlowCollector<Resource<Search>>) = viewModelScope.launch {
+        communication.collectMovies(collector)
     }
+
 }

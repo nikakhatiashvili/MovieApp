@@ -1,13 +1,12 @@
 package com.example.movieapp.feature_movies.domain.utils
 
-import android.util.Log.d
 import retrofit2.Response
 
-interface ResponseHandler {
+interface ProvideResponseHandler {
 
     suspend fun <T> handleResponse(apicall: suspend() -> Response<T>): Resource<T>
 
-    class Base(private val internetCheckerProvider: ProvideInternetConnectionChecker): ResponseHandler {
+    class Base(private val internetCheckerProvider: ProvideInternetConnectionChecker): ProvideResponseHandler {
         override suspend fun <T> handleResponse(apicall: suspend () -> Response<T>): Resource<T> {
             if (internetCheckerProvider.isNetworkConnected()) {
                 try {

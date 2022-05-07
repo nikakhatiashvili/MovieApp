@@ -14,7 +14,7 @@ import com.example.movieapp.common.utils.Dispatchers
 import com.example.movieapp.feature_movies.data.remote_data.details.DetailsService
 import retrofit2.converter.moshi.MoshiConverterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.example.movieapp.feature_movies.domain.utils.ResponseHandler
+import com.example.movieapp.feature_movies.domain.utils.ProvideResponseHandler
 import com.example.movieapp.feature_movies.data.remote_data.movie_tv_shows.MovieService
 import com.example.movieapp.feature_movies.data.remote_data.search.SearchService
 import com.example.movieapp.feature_movies.data.repository.detail_repo.DetailsRepositoryImpl
@@ -35,9 +35,10 @@ import com.example.movieapp.feature_movies.domain.use_cases.movie.upcoming.Upcom
 import com.example.movieapp.feature_movies.domain.use_cases.movie.top_rated.TopRatedUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.search.MultiSearchUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.search.SearchUseCaseClass
-import com.example.movieapp.feature_movies.domain.utils.DelayProvider
+import com.example.movieapp.feature_movies.domain.utils.ProvideDelay
 import com.example.movieapp.feature_movies.domain.utils.ProvideInternetConnectionChecker
 import com.example.movieapp.feature_movies.domain.utils.Resource
+import com.example.movieapp.feature_movies.presentation.fragments.details.DetailMoviesResource
 import com.example.movieapp.feature_movies.presentation.fragments.home.FullResource
 import dagger.hilt.android.qualifiers.ApplicationContext
 
@@ -101,7 +102,7 @@ object MovieModule {
     @Singleton
     fun provideSearchRepository(
         searchService: SearchService,
-        responseHandler: ResponseHandler
+        responseHandler: ProvideResponseHandler
     ): SearchRepository {
         return SearchRepositoryImpl(searchService, responseHandler)
     }
@@ -111,7 +112,7 @@ object MovieModule {
     @Singleton
     fun provideMovieRepository(
         movieService: MovieService,
-        responseHandler: ResponseHandler
+        responseHandler: ProvideResponseHandler
     ): MoviesRepository {
         return TopRatedRepositoryImpl(movieService, responseHandler)
     }
@@ -120,7 +121,7 @@ object MovieModule {
     @Singleton
     fun provideDetailsRepository(
         detailsService: DetailsService,
-        responseHandler: ResponseHandler
+        responseHandler: ProvideResponseHandler
     ): DetailsRepository {
         return DetailsRepositoryImpl(detailsService, responseHandler)
     }
@@ -128,15 +129,15 @@ object MovieModule {
 
     @Provides
     @Singleton
-    fun provideResponseHandler(provideInternetConnectionChecker: ProvideInternetConnectionChecker): ResponseHandler =
-        ResponseHandler.Base(provideInternetConnectionChecker)
+    fun provideResponseHandler(provideInternetConnectionChecker: ProvideInternetConnectionChecker): ProvideResponseHandler =
+        ProvideResponseHandler.Base(provideInternetConnectionChecker)
 
     @Provides
     @Singleton
     fun provideDispatchers(): Dispatchers = Dispatchers.Base()
 
     @Provides
-    fun provideDelay(): DelayProvider = DelayProvider.Base()
+    fun provideDelay(): ProvideDelay = ProvideDelay.Base()
 
     @Provides
     fun provideCommunication(): Communication<FullResource> = Communication.Base(FullResource.Empty)
@@ -144,6 +145,10 @@ object MovieModule {
     @Provides
     fun provideSearchCommunication(): Communication<Resource<Search>> =
         Communication.Base(Resource.Loading())
+
+    @Provides
+    fun provideDetailsMoviesResource(): Communication<DetailMoviesResource> =
+        Communication.Base(DetailMoviesResource.Empty)
 
     @Provides
     fun provideInternetCheckConnection(@ApplicationContext context: Context): ProvideInternetConnectionChecker =
