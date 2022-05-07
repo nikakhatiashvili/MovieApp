@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.example.movieapp.common.extensions.collect
+import com.example.movieapp.common.utils.Dispatchers
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.UpcomingMovies
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val moviesUseCase: MoviesUseCase,
-    private val dispatchers: com.example.movieapp.common.utils.Dispatchers
+    private val dispatchers: Dispatchers
 ) : ViewModel() {
 
     private val _movies = MutableStateFlow<Resource<TopRated>>(Resource.EmptyData())
@@ -39,6 +40,7 @@ class HomeViewModel @Inject constructor(
             collect(moviesUseCase.topRatedUseCase()) {
                 _movies.value = it
             }
+
         }
     }
 
