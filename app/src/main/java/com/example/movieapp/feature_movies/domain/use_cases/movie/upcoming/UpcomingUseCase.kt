@@ -6,14 +6,10 @@ import kotlinx.coroutines.flow.flow
 import com.example.movieapp.feature_movies.domain.utils.Resource
 import com.example.movieapp.feature_movies.domain.repository.movie_repo.MoviesRepository
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.latest.UpcomingMovies
+import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.Popular
 
 class UpcomingUseCase @Inject constructor(private val MovieRepository: MoviesRepository) {
-    operator fun invoke(): Flow<Resource<UpcomingMovies>> = flow {
-        try {
-            emit(Resource.Loading())
-            emit(MovieRepository.upcomingMovies())
-        } catch (e: Exception) {
-            emit(Resource.Error("Exception"))
-        }
+    suspend operator fun invoke(page:Int): Resource<UpcomingMovies>  {
+        return MovieRepository.upcomingMovies(page)
     }
 }

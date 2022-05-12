@@ -7,9 +7,20 @@
         <entry key="..\:/RealMovieApp/app/src/main/res/layout/details_fragment.xml" value="0.26875" />
         <entry key="..\:/RealMovieApp/app/src/main/res/layout/home_fragment.xml" value="0.25" />
         <entry key="..\:/RealMovieApp/app/src/main/res/layout/search_fragment.xml" value="0.26875" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/drawable/loading.xml" value="0.235" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/drawable/loading_anim.xml" value="0.235" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/layout/genres_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/layout/home_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/layout/load_state_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/layout/movie_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/layout/rated_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GeoComputers/Desktop/MovieApp/app/src/main/res/layout/upcoming_item.xml" value="0.2791666666666667" />
+        <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/drawable/ic_right_arrow_svgrepo_com.xml" value="0.1645" />
         <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/layout/home_fragment.xml" value="0.33" />
+        <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/layout/load_state_layout.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/layout/movie_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/layout/search_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/GeoComputers/Desktop/noxtton-dade-app-ad6a5f01e9ca/MovieApp/app/src/main/res/layout/upcoming_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

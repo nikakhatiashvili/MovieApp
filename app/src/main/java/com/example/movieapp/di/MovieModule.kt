@@ -30,6 +30,7 @@ import com.example.movieapp.feature_movies.domain.use_cases.detail.DetailMovieCa
 import com.example.movieapp.feature_movies.domain.use_cases.detail.DetailMovieUseCaseUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.detail.DetailsUseCaseClass
 import com.example.movieapp.feature_movies.domain.use_cases.detail.SimilarMoviesUseCase
+import com.example.movieapp.feature_movies.domain.use_cases.movie.genres.GenresUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.movie.popular.PopularUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.movie.upcoming.UpcomingUseCase
 import com.example.movieapp.feature_movies.domain.use_cases.movie.top_rated.TopRatedUseCase
@@ -82,7 +83,8 @@ object MovieModule {
         return MoviesUseCase(
             topRatedUseCase = TopRatedUseCase(repo),
             popularUseCase = PopularUseCase(repo),
-            upcomingUseCase = UpcomingUseCase(repo)
+            upcomingUseCase = UpcomingUseCase(repo),
+            genresUseCase = GenresUseCase(repo)
         )
     }
 

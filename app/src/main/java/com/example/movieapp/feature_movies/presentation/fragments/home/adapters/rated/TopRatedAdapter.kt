@@ -1,4 +1,4 @@
-package com.example.movieapp.feature_movies.presentation.fragments.home.viewpager
+package com.example.movieapp.feature_movies.presentation.fragments.home.adapters.rated
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,51 +6,44 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.common.extensions.koinLoad
-import com.example.movieapp.common.extensions.setImage
-import com.example.movieapp.databinding.MovieItemBinding
-import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.popular.PopularResult
+import com.example.movieapp.databinding.RatedItemBinding
 import com.example.movieapp.feature_movies.domain.model.movies_tv_shows.top_rated.TopRatedMovies
 
-class ViewPagerAdapter :
-    PagingDataAdapter<PopularResult, ViewPagerAdapter.ViewPagerViewHolder>(REPOSITORY_COMPARATOR) {
 
-//    var data: List<PopularResult> = emptyList()
-//        set(value) {
-//            field = value
-//            notifyDataSetChanged()
-//        }
+
+class TopRatedAdapter() :
+    PagingDataAdapter<TopRatedMovies, TopRatedAdapter.ViewPagerViewHolder>(REPOSITORY_COMPARATORS) {
+
 
     companion object {
-        private val REPOSITORY_COMPARATOR =
-            object : DiffUtil.ItemCallback<PopularResult>() {
+        private val REPOSITORY_COMPARATORS =
+            object : DiffUtil.ItemCallback<TopRatedMovies>() {
                 override fun areItemsTheSame(
-                    oldItem: PopularResult,
-                    newItem: PopularResult
+                    oldItem: TopRatedMovies,
+                    newItem: TopRatedMovies
                 ) =
                     oldItem.id == newItem.id
 
                 override fun areContentsTheSame(
-                    oldItem: PopularResult,
-                    newItem: PopularResult
+                    oldItem: TopRatedMovies,
+                    newItem: TopRatedMovies
                 ) =
                     oldItem == newItem
             }
     }
 
-    inner class ViewPagerViewHolder(var binding: MovieItemBinding) :
+    inner class ViewPagerViewHolder(var binding: RatedItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(repo:PopularResult) {
-
+        fun bind(repo: TopRatedMovies) {
             binding.imageView.koinLoad("https://image.tmdb.org/t/p/original/" + repo.poster_path)
 //            binding.tvTitle.text = curNames.title
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
-        val binding = MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RatedItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewPagerViewHolder(binding)
     }
-
 
 
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
@@ -58,3 +51,4 @@ class ViewPagerAdapter :
         holder.bind(currentRepo!!)
     }
 }
+
